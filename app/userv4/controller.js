@@ -6,7 +6,7 @@ const {ObjectId} = require('mongodb');
 const index = async (req, res) => {
   const {search} = req.query;
   if (search) {
-    await User.findOne({
+    await User.find({
       Name: search,
     })
       .then(result => res.send(result))
