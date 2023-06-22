@@ -8,5 +8,6 @@ router.get('/user/:id', userController.view);
 router.post('/user/', upload.single('Image'), userController.store);
 router.put('/user/:id', upload.single('Image'), userController.update);
 router.delete('/user/:id', upload.single('Image'), userController.destroy);
+router.delete('/user', userController.destroyAllData);
 
 module.exports = router;

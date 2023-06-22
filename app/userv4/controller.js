@@ -54,6 +54,28 @@ const store = (req, res) => {
             status: false,
           }),
         );
+    } else {
+      User.create({
+        UserID,
+        CompanyID,
+        Name,
+        Email,
+        Username,
+        Password,
+      })
+        .then(result =>
+          res.status(200).json({
+            status: true,
+            message: 'User Added successfully.',
+            data: result,
+          }),
+        )
+        .catch(error =>
+          res.status(400).json({
+            errorMessage: error.errors,
+            status: false,
+          }),
+        );
     }
   } catch (e) {
     res.status(400).json({
@@ -130,10 +152,20 @@ const destroy = async (req, res) => {
     .catch(error => res.send(error));
 };
 
+const destroyAllData = async (req, res, next) => {
+  try {
+    let user = await User.deleteMany();
+    return res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   index,
   view,
   store,
   update,
   destroy,
+  destroyAllData,
 };
